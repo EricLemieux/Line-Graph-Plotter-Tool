@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<!--
+SImple line making tool to make it easier for speed graphs and stuff
+
+Eric Lemieux, 2014
+-->
+<html>
+	<head>
+		<title>Line Plotter</title>
+	</head>
+	
+	<body>
+		<div>
+			<canvas id="canv" width="750" height="750" style="border:1px solid #000000;"></canvas>
+			
+			<div style="text-align:left;">
+				<h2>Line Plotter thing</h2>
+			</div>
+		</div>
+		
+		<script>
+			var c = document.getElementById("canv");
+			c.addEventListener("mousedown", doMouseDown, false);
+			var ctx = c.getContext("2d");
+			ctx.fillStyle = "#000000";
+			
+			var pointList = []
+			
+			function doMouseDown(event){
+				//Get the location of the click
+				var x = event.pageX;
+				var y = event.pageY;
+				
+				//Append the array with the new data
+				pointList.push([x,y]);
+				
+				//Draw onto the canvas
+				ctx.fillRect(pointList[pointList.length-1][0], pointList[pointList.length-1][1], 5, 5);
+				
+				//Draw the connecting line
+				if(pointList.length >= 2){
+					ctx.moveTo(pointList[pointList.length-2][0], pointList[pointList.length-2][1]);
+					ctx.lineTo(pointList[pointList.length-1][0], pointList[pointList.length-1][1]);
+					ctx.stroke();
+				}
+			}
+		</script>
+	</body>
+</html>
