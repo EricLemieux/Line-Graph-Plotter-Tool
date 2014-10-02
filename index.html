@@ -52,12 +52,18 @@ Eric Lemieux, 2014
 			}
 			
 			function saveToFile(){
-				var myBlob = new Blob([JSON.stringify(pointList)], {type: 'text/plain'});
+				//Normalize the points data
+				for(var i = 0;  i < pointList.length; ++i){
+					pointList[i][0] = pointList[i][0] / 750.0;
+					pointList[i][1] = pointList[i][1] / 750.0;
+				}
+			
+				var myBlob = new Blob([JSON.stringify(pointList)], {type: 'application/json'});
 				
 				var a = document.getElementById("download");
 				a.href = URL.createObjectURL(myBlob);
-				a.download = 'filename.txt';
-				a.textContent = 'Download file!';
+				a.download = 'filename.json';
+				a.textContent = 'Download file! (Right click and save as)';
 			}
 		</script>
 	</body>
