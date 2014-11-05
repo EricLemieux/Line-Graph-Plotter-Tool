@@ -31,6 +31,7 @@ Eric Lemieux, 2014
 			ctx.fillStyle = "#000000";
 			
 			var pointList = []
+			pointList.push([0.0,750.0]);
 			
 			function doMouseDown(event){
 				//Get the location of the click
@@ -56,6 +57,9 @@ Eric Lemieux, 2014
 				for(var i = 0;  i < pointList.length; ++i){
 					pointList[i][0] = pointList[i][0] / 750.0;
 					pointList[i][1] = pointList[i][1] / 750.0;
+					
+					//Flip the y-axis
+					pointList[i][1] = 1.0 - pointList[i][1];
 				}
 			
 				var myBlob = new Blob([JSON.stringify(pointList)], {type: 'application/json'});
