@@ -15,7 +15,11 @@ Eric Lemieux, 2014
 			
 			<div style="text-align:left;">
 				<h2>Line Plotter thing</h2>
-				<button onClick="saveToFile()">Save as JSON</button>
+				
+				<ul>
+					<li><button onClick="saveToFile()">Save as JSON</button></li>
+					<li><button onClick="resetPointList()">Reset point list</button></li>
+				</ul>
 				<a id="download" href=""></a>
 			</div>
 			
@@ -30,6 +34,10 @@ Eric Lemieux, 2014
 			var ctx = c.getContext("2d");
 			ctx.fillStyle = "#000000";
 			
+			var bbSize = 20.0;
+			
+			var activeIndex = 1;
+			
 			var pointList = []
 			pointList.push([0.0,750.0]);
 			pointList.push([750.0,0.0]);
@@ -40,8 +48,25 @@ Eric Lemieux, 2014
 				var x = event.pageX;
 				var y = event.pageY;
 				
+				var selectionExists = false;
+				
+				for(var i = 0; i < pointList.length; ++i)
+				{
+					if(pointList[i][0] > x - bbSize && pointList[i][0] < x + bbSize &&
+						pointList[i][1] > y - bbSize && pointList[i][1] < y + bbSize)
+					{
+						selectionExists = true;
+						
+						activeIndex = i+1;
+					}
+				}
+				
 				//Append the array with the new data
-				pointList.splice(pointList.length-1, 0, [x,y]);
+				if(selectionExists == false)
+				{
+					pointList.splice(activeIndex, 0, [x,y]);
+					activeIndex++;
+				}
 				
 				drawPoints();
 			}
@@ -80,6 +105,15 @@ Eric Lemieux, 2014
 				a.href = URL.createObjectURL(myBlob);
 				a.download = 'filename.json';
 				a.textContent = 'Download file! (Right click and save as)';
+			}
+			
+			function resetPointList()
+			{
+				activeIndex = 1;
+				pointList = []
+				pointList.push([0.0,750.0]);
+				pointList.push([750.0,0.0]);
+				drawPoints();
 			}
 		</script>
 	</body>
