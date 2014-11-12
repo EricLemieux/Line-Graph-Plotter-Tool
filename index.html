@@ -77,8 +77,14 @@ Eric Lemieux, 2014
 				ctx.beginPath();
 				
 				for(var i = 1; i < pointList.length; ++i){
+					if(i == activeIndex-1){
+						ctx.fillStyle = 'red';
+					}else{
+						ctx.fillStyle = 'black';
+					}
+				
 					//Draw onto the canvas
-					ctx.fillRect(pointList[i][0], pointList[i][1], 5, 5);
+					ctx.fillRect(pointList[i][0], pointList[i][1], 10, 10);
 					
 					//Draw the connecting line
 					if(pointList.length >= 2){
@@ -107,8 +113,7 @@ Eric Lemieux, 2014
 				a.textContent = 'Download file! (Right click and save as)';
 			}
 			
-			function resetPointList()
-			{
+			function resetPointList(){
 				activeIndex = 1;
 				pointList = []
 				pointList.push([0.0,750.0]);
