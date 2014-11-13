@@ -19,6 +19,7 @@ Eric Lemieux, 2014
 				<ul>
 					<li><button onClick="saveToFile()">Save as JSON</button></li>
 					<li><button onClick="resetPointList()">Reset point list</button></li>
+					<li><button onClick="deleteActiveNode()">Delete the active node</button></li>
 				</ul>
 				<a id="download" href=""></a>
 			</div>
@@ -76,15 +77,19 @@ Eric Lemieux, 2014
 				ctx.clearRect( 0, 0, c.width, c.height);
 				ctx.beginPath();
 				
+				var pointSize = 10;
+				
 				for(var i = 1; i < pointList.length; ++i){
 					if(i == activeIndex-1){
 						ctx.fillStyle = 'red';
+						pointSize = 20;
 					}else{
 						ctx.fillStyle = 'black';
+						pointSize = 10;
 					}
 				
 					//Draw onto the canvas
-					ctx.fillRect(pointList[i][0], pointList[i][1], 10, 10);
+					ctx.fillRect(pointList[i][0], pointList[i][1], pointSize, pointSize);
 					
 					//Draw the connecting line
 					if(pointList.length >= 2){
@@ -119,6 +124,14 @@ Eric Lemieux, 2014
 				pointList.push([0.0,750.0]);
 				pointList.push([750.0,0.0]);
 				drawPoints();
+			}
+		
+			function deleteActiveNode(){
+				if(activeIndex > 0 && activeIndex < pointList.length-1){
+					pointList.splice(activeIndex-1,1);
+					activeIndex -= 1;
+					drawPoints();
+				}
 			}
 		</script>
 	</body>
