@@ -127,7 +127,7 @@ Eric Lemieux, 2014
 			}
 		
 			function deleteActiveNode(){
-				if(activeIndex > 0 && activeIndex < pointList.length-1){
+				if(activeIndex > 1 && activeIndex < pointList.length){
 					pointList.splice(activeIndex-1,1);
 					activeIndex -= 1;
 					drawPoints();
