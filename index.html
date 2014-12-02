@@ -20,11 +20,9 @@ Eric Lemieux, 2014
 					<button onClick="resetPointList()">Reset point list</button>
 				</div>
 			</div>
-			<div style="text-align:left; padding-top:50px;">
-				<h2>Line Plotter thing</h2>
-
+			<div style="text-align:left; padding-top:20px;">
 				<ul>
-					<li><button onClick="saveToFile()">Save as JSON</button></li>
+					<li>File Name:<textarea id="fileName" rows="1" cols="10"></textarea> <button onClick="saveToFile()">Save as JSON</button></li>
 				</ul>
 				<a id="download" href=""></a>
 			</div>
@@ -119,7 +117,9 @@ Eric Lemieux, 2014
 
 				var a = document.getElementById("download");
 				a.href = URL.createObjectURL(myBlob);
-				a.download = 'filename.json';
+				var fileName = document.getElementById("fileName").value;
+				fileName += ".json";
+				a.download = fileName;
 				a.textContent = 'Download file! (Right click and save as)';
 			}
 
